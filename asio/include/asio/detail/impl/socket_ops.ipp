@@ -1867,7 +1867,8 @@ socket_type socket(int af, int type, int protocol,
     asio::error_code& ec)
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
-  socket_type s = ::WSASocketW(af, type, protocol, 0, 0, WSA_FLAG_OVERLAPPED);
+  socket_type s = ::WSASocketW(af, type, protocol, 0, 0,
+                               WSA_FLAG_OVERLAPPED | WSA_FLAG_NO_HANDLE_INHERIT);
   get_last_error(ec, s == invalid_socket);
   if (s == invalid_socket)
     return s;
